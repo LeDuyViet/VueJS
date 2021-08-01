@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" >
+        <button @click="addTask()">Add Task</button>
+        <h1 v-bind:class="{active: isActive}" v-for="(task, index ) in tasks" :key="key">{{ index + 1 }} - {{ task.id}}</h1>
+        <h1 :class="{active: true, error: true}"></h1>
+        <h1 :class="[x, y]">Hello</h1>
+    </div>
+    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    tasks: [
+                        {
+                            id: 1,
+                            name: 'Feature 1'
+                        },
+                        {
+                            id: 2,
+                            name: 'Feature 2'
+                        },
+                        {
+                            id: 3,
+                            name: 'Feature 3'
+                        },
+                        {
+                            id: 4,
+                            name: 'Feature 4'
+                        },
+                        {
+                            id: 5,
+                            name: 'Feature 5'
+                        }
+                    ],
+                    isActive: true,
+                    x: 'active',
+                    y: 'error'
+                }
+            },
+            methods: {
+                addTask() {
+                    this.tasks.push({
+                        id: 1,
+                        name: 'Task name'
+                    })
+                }
+            }
+        }).mount('#app')
+
+    </script>
+</body>
+</html>

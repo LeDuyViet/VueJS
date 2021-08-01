@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Task management</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body>
+    <div id="app">
+        <div class='container'>
+            <div class='container__header'>
+                <h1>Tasks managament</h1>
+            </div>
+
+            <input class='list-input' type='text' placeholder='Your task name' v-model='task.title' />
+            <button @click="addTask()" >Add task</button><br/><br/>
+
+            <ul class='list'>
+                <li class='list__item' v-for="(task,index) in tasks" > {{task.title}} <i class='icon-close' @click="deleteTask(index)" ></i></li>
+            </ul>
+        </div>
+
+        <h1>fdhjdsahfkjdsafdsafdsagfdfsgdfsgfasdfsad</h1>
+    </div>
+
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+
+                    task: {
+                        id: '',
+                        title: ''
+                    },
+                    tasks: [
+                        {
+                            id: 1,
+                            title: 'Buy milk'
+                        }
+        
+
+                    ]
+                }
+            },
+            methods: {
+                addTask() {
+                    if(_.isEmpty(this.task.title)) {
+                        alert('Empty Task Name')
+                        return false
+                    }
+                    let task = {
+                        id: null,
+                        title: this.task.title
+                    }
+                    // xu ly id
+                    if(this.tasks.length === 0)
+                    {
+                        task.id = 1
+                    } else {
+                        // task.id = this.tasks.length + 1
+                        item = _.maxBy(this.tasks, function(item) {return item.id })
+                        task.id =  item.id + 1;
+                    }
+
+                    if(!task.id) {
+                        alert('Empty task id')
+                    }
+                    this.tasks.push({
+                        id: task.id,
+                        title: task.title
+                    })
+                    this.task.title = ''
+                    // console.log(this.tasks);
+                },
+                deleteTask(index) {
+                    if( confirm("Delete task ?"))
+                    this.tasks.splice(index,1)
+                }
+            }
+        }).mount('#app')
+
+
+
+
+
+        // Vue.createApp({
+        //     data() {
+        //         return {
+        //             task: {
+        //                 id: '',
+        //                 title: ''
+        //             },
+        //             tasks: []
+        //         }
+        //     },
+        //     methods: {
+        //         addTask() {
+        //             if (_.isEmpty(this.task.title)) {
+        //                 alert('Please enter task')
+        //                 return false
+        //             }
+
+        //             let task = {
+        //                 id: '',
+        //                 title: this.task.title
+        //             }
+
+        //             if (this.tasks.length === 0) {
+        //                 task.id = 1
+        //             }
+
+        //             if (this.tasks.length > 0) {
+        //                 let item = _.maxBy(this.tasks, function(item) { return item.id })
+        //                 task.id = item.id + 1
+        //             }
+
+        //             if (!task.id) {
+        //                 alert('Task id can not blank')
+        //                 return false
+        //             }
+
+        //             this.tasks.push(task)
+
+        //             this.task.title = ''
+        //         },
+        //         deleteTask(index) {
+        //             if (confirm('Bạn có thực sự muốn xóa không?')) {
+        //                 this.tasks.splice(index, 1)
+        //             }
+        //         }
+        //     }
+        // }).mount('#app')
+    </script>
+</body>
+</html>

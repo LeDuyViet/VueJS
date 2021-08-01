@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" v-model='email' @change='showChange()'>
+        <hr>
+        <h3>Multil checkbox</h3>
+        <label for="">Favs:
+            <input @click="showFavsChange()" type="checkbox" name="" id="" v-model='favs' value="Football"> Football
+            <input @click="showFavsChange()" type="checkbox" name="" id="" v-model='favs' value="Game"> Game
+            <input @click="showFavsChange()" type="checkbox" name="" id="" v-model='favs' value="Swim"> Swim
+
+
+        </label>
+        <hr>
+        <h3>Select box</h3>
+        <select name="cities" id="" v-model='selectedCity'>
+            <option value="" disabled selected>Chọn</option>
+            <option :value="city.id" v-for='city in cities'>{{ city.name }}</option>
+        </select>
+    </div>
+
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    email: 'x@gmail.com',
+                    favs: ['Football'],
+                    selectedCity: 2, 
+                    cities: [
+                        {
+                            id: 1,
+                            name: 'City 1'
+                        },
+                        {
+                            id: 2,
+                            name: 'City 2'
+                        },
+                        {
+                            id: 3,
+                            name: 'City 3'
+                        },
+                        {
+                            id: 4,
+                            name: 'City 4'
+                        },
+                    ]
+                }
+            },
+            methods: {
+                showChange() {
+                    console.log(this.email);
+                },
+                showFavsChange() {
+                    console.log(this.favs);
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

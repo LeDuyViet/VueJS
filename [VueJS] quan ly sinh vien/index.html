@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <style>
+      body {
+        max-width: 960px;
+        margin: 30px auto;
+        padding: 0px 20px 0px 20px;
+        display: flex;
+      }
+
+      label {
+        float: left;
+        width: 90px;
+      }
+
+      div {
+        margin-bottom: 10px;
+      }
+
+      input {
+        width: 250px;
+      }
+
+      span.error {
+        color: red;
+      }
+
+      .user-list {
+        margin-left: 100px;
+      }
+      .paging {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+      }
+      .paging > * {
+        margin: 0 5px;
+        text-decoration: none;
+        padding: 5px 10px;
+        background-color: aqua;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="showHideListStudents()" href="">Show List Students</button>
+      <button @click="showHideRegister()" href="">Show Register Student</button>
+      <div v-if="isRegister" class="form-register">
+        <h3>Register</h3>
+        <input type="hidden" v-model="Student.id">
+        <div class="form-group">
+          <label for="fullname">Fullname</label>
+          <input type="text" id="fullname" v-model="Student.fullname" />
+          <span class="error error__fullname"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" v-model="Student.email" />
+          <span class="error error__email"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" v-model="Student.phone" />
+          <span class="error error__phone"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          Nam<input type="radio" id="gender" value="1" checked v-model="Student.gender" />
+          Nữ<input type="radio" id="gender" value="2" v-model="Student.gender" />
+        </div>
+
+        <div class="form-group">
+          <label for="">&nbsp;</label>
+          <button @click="register()" class="btn-register" data-id="">Register</button>
+          <button type="reset">Reset</button>
+        </div>
+      </div>
+
+      <div v-if="isShow" class="user-list">
+        <h3>Users list</h3>
+        <table id="table-user-list" border="1" width="500" cellpadding="0" cellspacing="0">
+            <thead>
+                <th>STT</th>
+                <th>Họ Tên</th>
+                <th>Email</th>
+                <th>SĐT</th>
+                <th>Giới tính</th>
+                <th>Hành Động</th>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in studentInPage" :key="index">
+                    <td>{{index}}</td>
+                    <td>{{item.fullname}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.gender == 1 ? 'Nam' : 'Nữ'}}</td>
+                    <td>
+                      <a href="#" @click="edit(index)">Edit</a> |
+                      <a href="#" @click="Delete(index)">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="paging">
+          <a @click="Paging(i)" href="#" v-for="i in totalPage">{{ i == page ? [i] : i}}</a>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
